@@ -1,0 +1,26 @@
+{
+  "it": {
+    "title": "SonicsElixir",
+    "version": "Versione 0.2.0",
+    "description": "Utility per gestire dispositivi Android tramite ADB.",
+    "execute_button": "Esegui Comandi ADB",
+    "language_label": "Seleziona Lingua:",
+    "device_connected": "Dispositivo connesso correttamente.",
+    "device_not_connected": "Nessun dispositivo connesso. Assicurati che il dispositivo sia collegato correttamente e che siano abilitati i permessi ADB.",
+    "error_occurred": "Si è verificato un errore. Riprova più tardi.",
+    "adb_commands_success": "Operazioni ADB completate con successo!",
+    "exit_message": "Grazie per aver utilizzato SonicsElixir. Arrivederci!"
+  },
+"en": {
+    "title": "SonicsElixir",
+    "version": "Version 0.2.0",
+    "description": "Utility to manage Android devices via ADB.",
+    "execute_button": "Execute ADB Commands",
+    "language_label": "Select Language:",
+    "device_connected": "Device connected successfully.",
+    "device_not_connected": "No device connected. Make sure the device is properly connected and ADB permissions are granted.",
+    "error_occurred": "An error occurred. Please try again later.",
+    "adb_commands_success": "ADB operations completed successfully!",
+    "exit_message": "Thank you for using SonicsElixir. Goodbye!"
+  }
+}
