@@ -1,4 +1,4 @@
-# sonic-s-elixir
+# Sonic's Elixir
 Sonic's Elixir è un script Python che consente di ottimizzare le prestazioni e la salute di dispositivi Android.
 
 Lo script esegue le seguenti operazioni:
