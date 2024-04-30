@@ -1,6 +1,6 @@
-# SonicsElixir
+# Sonic's Elixir
 
-SonicsElixir is a utility program for managing Android devices via ADB (Android Debug Bridge). It provides a user-friendly graphical interface to execute various ADB commands and optimize the performance of connected Android devices. NB that this program is still a beta pre-release and needs lot of testing
+Sonic's Elixir is a utility program for managing Android devices via ADB (Android Debug Bridge). It provides a user-friendly graphical interface to execute various ADB commands and optimize the performance of connected Android devices. NB that this program is still a beta pre-release and needs lot of testing
 Table of Contents
 
     Features
