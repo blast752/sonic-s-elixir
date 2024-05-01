@@ -4,14 +4,14 @@ Sonic's Elixir is a utility program for managing Android devices via ADB (Androi
 NB that this program is still a beta pre-release and needs lot of testing.
 
 Table of Contents:  
-1. Features
-2. Prerequisites
-3. Installation
-4. Usage
-5. Configuration
-6. Translations
-7. Contributing
-8. License
+* Features
+* Prerequisites
+* Installation
+* Usage
+* Configuration
+* Translations
+* Contributing
+* License
 
 1. **Features**
    Execute ADB commands to manage connected Android devices
