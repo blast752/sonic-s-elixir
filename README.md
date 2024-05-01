@@ -68,5 +68,5 @@ pip install -r requirements.txt
 11. **License**
     * This project is licensed under the MIT License.
 
-**Note: Do not use SonicsElixir on devices without proper authorization. Always ensure that you have the necessary permissions and comply with the terms and conditions of the device manufacturer and any applicable laws and regulations.**
-**Disclaimer: The developer of SonicsElixir is not responsible for any damage or loss caused by the use of this program. Use it at your own risk.**
+* **Note: Do not use SonicsElixir on devices without proper authorization. Always ensure that you have the necessary permissions and comply with the terms and conditions of the device manufacturer and any applicable laws and regulations.**
+* **Disclaimer: The developer of SonicsElixir is not responsible for any damage or loss caused by the use of this program. Use it at your own risk.**
