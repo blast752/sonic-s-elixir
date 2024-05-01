@@ -60,10 +60,10 @@ class SonicsElixir:
             logging.warning("File di configurazione non trovato. Verranno utilizzate le impostazioni predefinite.")
             self.config = {
                 "resources_path": "resources/icons",
-                "github_url": "https://github.com/tuoUsername",
-                "telegram_url": "https://t.me/tuoCanaleTelegram",
-                "paypal_url": "https://linkPerDonazioni",
-                "buymeacoffee_url": "https://linkPerDonazioni"
+                "github_url": "https://github.com/blast752",
+                "telegram_url": "https://t.me/sonicselixir",
+                "paypal_url": "https://stillunderprogress.gg",
+                "buymeacoffee_url": "https://buymeacoffee.com/bodmlnnms"
             }
 
     def setup_logging(self):
