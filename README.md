@@ -36,7 +36,9 @@ Table of Contents:
    Open command prompt (cmd) or PowerShell and navigate to the project directory.
    Install the required dependencies by running the following command:
 
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
 4. **Usage**
    Connect your Android device to your computer via USB.
