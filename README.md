@@ -23,14 +23,14 @@ Table of Contents:
    * User-friendly graphical interface with icons and themed elements
 
 3. **Prerequisites**
-Before using SonicsElixir, ensure that you have the following prerequisites installed on your Windows system:
+   * Before using SonicsElixir, ensure that you have the following prerequisites installed on your Windows system:
 
     ```
     Python 3.x
     ADB (Android Debug Bridge) command-line tool
     ```
 
-5. **Installation**
+4. **Installation**
    * Download the latest available version of Sonic's Elixir from my GitHub page
    * Extract in a directory named Sonic-s Elixir the downloaded files
    * Open command prompt (cmd) or PowerShell and navigate to the project directory.
@@ -57,17 +57,16 @@ pip install -r requirements.txt
    * Once the optimization process is complete, a success message will be shown.
 
 5. **Configuration**
-SonicsElixir uses a configuration file (config.json) to store various settings and URLs. This will be used for futures updates and purposes.
-**IN PROGRESS...**
+   * SonicsElixir uses a configuration file (config.json) to store various settings and URLs. This will be used for futures updates and purposes. **IN PROGRESS...**
 
-6. **Translations**
-SonicsElixir supports multiple languages through a translations file (translations.json). The default translations are provided for English and Italian. You can add or modify translations by editing the translations.json file.
+7. **Translations**
+   * SonicsElixir supports multiple languages through a translations file (translations.json). The default translations are provided for English and Italian. You can add or modify translations by editing the translations.json file.
 
-7. **Contributing**
-Contributions to SonicsElixir are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the GitHub repository.
+9. **Contributing**
+    * Contributions to SonicsElixir are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the GitHub repository.
 
-8. **License**
-This project is licensed under the MIT License.
+11. **License**
+    *This project is licensed under the MIT License.
 
 **Note: Do not use SonicsElixir on devices without proper authorization. Always ensure that you have the necessary permissions and comply with the terms and conditions of the device manufacturer and any applicable laws and regulations.**
-**Disclaimer: The developers of SonicsElixir are not responsible for any damage or loss caused by the use of this program. Use it at your own risk.**
+**Disclaimer: The developer of SonicsElixir is not responsible for any damage or loss caused by the use of this program. Use it at your own risk.**
