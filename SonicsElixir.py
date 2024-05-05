@@ -1,30 +1,8 @@
+import json
+import logging
 import os
 import subprocess
 import sys
-
-def install_dependencies():
-    try:
-        # Ottieni il percorso assoluto dello script Python corrente
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        
-        # Costruisci il percorso assoluto del file requirements.txt
-        requirements_path = os.path.join(script_dir, "requirements.txt")
-        
-        # Verifica se il file requirements.txt esiste
-        if os.path.isfile(requirements_path):
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
-        else:
-            print("File requirements.txt non trovato. Assicurati che sia presente nella stessa directory dello script.")
-            sys.exit(1)
-    except subprocess.CalledProcessError as e:
-        print(f"Errore durante l'installazione delle dipendenze: {e}")
-        sys.exit(1)
-
-install_dependencies()
-
-import json
-import logging
-import subprocess
 import threading
 import tkinter as tk
 import webbrowser
@@ -47,24 +25,9 @@ class SonicsElixir:
         self.foreground_color = "#FFFFFF"
         self.highlight_color = "#2C2C2C"
 
-        self.load_config()
         self.setup_logging()
         self.load_translations()
         self.create_gui()
-
-    def load_config(self):
-        try:
-            with open("config.json", "r") as config_file:
-                self.config = json.load(config_file)
-        except FileNotFoundError:
-            logging.warning("File di configurazione non trovato. Verranno utilizzate le impostazioni predefinite.")
-            self.config = {
-                "resources_path": "resources/icons",
-                "github_url": "https://github.com/blast752",
-                "telegram_url": "https://t.me/sonicselixir",
-                "paypal_url": "https://stillunderprogress.gg",
-                "buymeacoffee_url": "https://buymeacoffee.com/bodmlnnms"
-            }
 
     def setup_logging(self):
         logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -78,7 +41,7 @@ class SonicsElixir:
             self.translations = {
                 "it": {
                     "title": "SonicsElixir",
-                    "version": "Versione 0.2.0",
+                    "version": "Versione 0.2.1",
                     "description": "Utility per gestire dispositivi Android tramite ADB.",
                     "execute_button": "Esegui Comandi ADB",
                     "language_label": "Seleziona Lingua:",
@@ -86,11 +49,24 @@ class SonicsElixir:
                     "device_not_connected": "Nessun dispositivo connesso. Assicurati che il dispositivo sia collegato correttamente e che siano abilitati i permessi ADB.",
                     "error_occurred": "Si è verificato un errore. Riprova più tardi.",
                     "adb_commands_success": "Operazioni ADB completate con successo!",
-                    "exit_message": "Grazie per aver utilizzato SonicsElixir. Arrivederci!"
+                    "exit_message": "Grazie per aver utilizzato SonicsElixir. Arrivederci!",
+                    "force_stop_apps": "Arresto forzato di tutte le app...",
+                    "force_stop_app": "Arresto forzato di {package}...",
+                    "force_stop_error": "Errore durante l'arresto forzato di {package}.",
+                    "clear_app_cache": "Cancellazione della cache delle app...",
+                    "clear_app_cache_iteration": "Iterazione {iteration}/50: Cache delle app in fase di cancellazione...",
+                    "clear_app_cache_success": "Cache delle app cancellata con successo.",
+                    "clear_app_cache_error": "Errore durante la cancellazione della cache delle app.",
+                    "optimize_apps": "Ottimizzazione delle applicazioni in corso...",
+                    "optimize_apps_success": "Comando di compilazione eseguito con successo.",
+                    "optimize_apps_error": "Errore durante l'esecuzione del comando di compilazione.",
+                    "optimize_apps_bg_success": "Ottimizzazione in background completata con successo.",
+                    "optimize_apps_bg_error": "Errore durante l'ottimizzazione in background.",
+                    "packages_list_error": "Errore durante l'ottenimento dell'elenco dei pacchetti."
                 },
                 "en": {
                     "title": "SonicsElixir",
-                    "version": "Version 0.2.0",
+                    "version": "Version 0.2.1",
                     "description": "Utility to manage Android devices via ADB.",
                     "execute_button": "Execute ADB Commands",
                     "language_label": "Select Language:",
@@ -98,7 +74,20 @@ class SonicsElixir:
                     "device_not_connected": "No device connected. Make sure the device is properly connected and ADB permissions are granted.",
                     "error_occurred": "An error occurred. Please try again later.",
                     "adb_commands_success": "ADB operations completed successfully!",
-                    "exit_message": "Thank you for using SonicsElixir. Goodbye!"
+                    "exit_message": "Thank you for using SonicsElixir. Goodbye!",
+                    "force_stop_apps": "Force stopping all apps...",
+                    "force_stop_app": "Force stopping {package}...",
+                    "force_stop_error": "Error while force stopping {package}.",
+                    "clear_app_cache": "Clearing app cache...",
+                    "clear_app_cache_iteration": "Iteration {iteration}/50: Clearing app cache...",
+                    "clear_app_cache_success": "App cache cleared successfully.",
+                    "clear_app_cache_error": "Error while clearing app cache.",
+                    "optimize_apps": "Optimizing applications...",
+                    "optimize_apps_success": "Compilation command executed successfully.",
+                    "optimize_apps_error": "Error while executing the compilation command.",
+                    "optimize_apps_bg_success": "Background optimization completed successfully.",
+                    "optimize_apps_bg_error": "Error during background optimization.",
+                    "packages_list_error": "Error while retrieving the package list."
                 }
             }
 
@@ -120,6 +109,8 @@ class SonicsElixir:
 
     def run_command(self, command):
         try:
+            adb_path = self.get_adb_path()
+            command = f'"{adb_path}" {command}'
             process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             for line in process.stdout:
                 self.write_output(line.strip())
@@ -133,68 +124,76 @@ class SonicsElixir:
             self.write_output(f"Errore durante l'esecuzione del comando: {command}\n{e.output}")
             return False
 
+    def get_adb_path(self):
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        return os.path.join(script_dir, "resources", "adb", "windows", "adb.exe")
+
     def check_device_connection(self):
         try:
-            output = subprocess.check_output("adb devices", shell=True, text=True)
+            adb_path = self.get_adb_path()
+            output = subprocess.check_output(f'"{adb_path}" devices', shell=True, text=True)
             if "device" in output:
                 return True
             else:
                 return False
         except subprocess.CalledProcessError:
             return False
-
+        
     def execute_adb_commands(self):
+        translations = self.translations[self.current_language]
+
         if not self.check_device_connection():
-            messagebox.showerror("Errore", self.translations[self.current_language]["device_not_connected"])
+            messagebox.showerror("Errore", translations["device_not_connected"])
             return
 
-        self.write_output(self.translations[self.current_language]["device_connected"])
+        self.write_output(translations["device_connected"])
 
-        self.write_output("Arresto forzato di tutte le app...")
+        self.write_output(translations["force_stop_apps"])
         try:
-            packages_output = subprocess.check_output("adb shell pm list packages", shell=True, text=True)
+            adb_path = self.get_adb_path()
+            packages_output = subprocess.check_output(f'"{adb_path}" shell pm list packages', shell=True, text=True)
             packages = [line.split(":")[1] for line in packages_output.splitlines() if line.startswith("package:")]
-            
+
             for package in packages:
-                self.write_output(f"Arresto forzato di {package}...")
-                if not self.run_command(f"adb shell am force-stop {package}"):
-                    messagebox.showerror("Errore", f"Errore durante l'arresto forzato di {package}.")
+                self.write_output(translations["force_stop_app"].format(package=package))
+                if not self.run_command(f'shell am force-stop {package}'):
+                    messagebox.showerror("Errore", translations["force_stop_error"].format(package=package))
                     return
         except subprocess.CalledProcessError as e:
-            messagebox.showerror("Errore", "Errore durante l'ottenimento dell'elenco dei pacchetti.")
+            messagebox.showerror("Errore", translations["packages_list_error"])
             return
 
-        self.write_output("Cancellazione della cache delle app...")
+        self.write_output(translations["clear_app_cache"])
         for i in range(50):
-            if not self.run_command("adb shell pm trim-caches 1000G"):
-                messagebox.showerror("Errore", "Errore durante la cancellazione della cache delle app.")
+            if not self.run_command("shell pm trim-caches 1000G"):
+                messagebox.showerror("Errore", translations["clear_app_cache_error"])
                 return
             else:
-                self.write_output(f"Iterazione {i+1}/50: Cache delle app in fase di cancellazione...")
+                self.write_output(translations["clear_app_cache_iteration"].format(iteration=i+1))
 
-        self.write_output("Cache delle app cancellata con successo.")
+        self.write_output(translations["clear_app_cache_success"])
 
-        self.write_output("Ottimizzazione delle applicazioni in corso...")
-        if self.run_command("adb shell cmd package compile -m speed -f -a"):
-            self.write_output("Comando di compilazione eseguito con successo.")
+        self.write_output(translations["optimize_apps"])
+        if self.run_command("shell cmd package compile -m speed -f -a"):
+            self.write_output(translations["optimize_apps_success"])
         else:
-            messagebox.showerror("Errore", "Errore durante l'esecuzione del comando di compilazione.")
+            messagebox.showerror("Errore", translations["optimize_apps_error"])
             return
 
-        if self.run_command('adb shell "cmd package bg-dexopt-job"'):
-            self.write_output("Ottimizzazione in background completata con successo.")
+        if self.run_command('shell "cmd package bg-dexopt-job"'):
+            self.write_output(translations["optimize_apps_bg_success"])
         else:
-            messagebox.showerror("Errore", "Errore durante l'ottimizzazione in background.")
+            messagebox.showerror("Errore", translations["optimize_apps_bg_error"])
             return
 
-        messagebox.showinfo("Successo", self.translations[self.current_language]["adb_commands_success"])
+        messagebox.showinfo("Successo", translations["adb_commands_success"])
 
     def open_url(self, url):
         webbrowser.open_new_tab(url)
 
     def create_gui(self):
         script_dir = Path(__file__).resolve().parent
-        resources_path = script_dir / self.config["resources_path"]
+        resources_path = script_dir / "resources" / "icons"
 
         github_icon = ImageTk.PhotoImage(Image.open(resources_path / "github-icon.png"))
         telegram_icon = ImageTk.PhotoImage(Image.open(resources_path / "telegram-icon.png"))
@@ -213,7 +212,7 @@ class SonicsElixir:
         self.title_label = ttk.Label(frame, text="SonicsElixir", font=("Helvetica", 24, "bold"), foreground=self.sonic_blue)
         self.title_label.pack(pady=(0, 10))
 
-        self.version_label = ttk.Label(frame, text="Versione 0.2.0", font=("Helvetica", 10), foreground=self.foreground_color)
+        self.version_label = ttk.Label(frame, text="Versione 0.2.1", font=("Helvetica", 10), foreground=self.foreground_color)
         self.version_label.pack()
 
         self.description_label = ttk.Label(frame, text="Utility per gestire dispositivi Android tramite ADB.", wraplength=600, justify="center", foreground=self.foreground_color)
@@ -242,19 +241,19 @@ class SonicsElixir:
         icons_frame = ttk.Frame(frame)
         icons_frame.pack(side=tk.BOTTOM, pady=(20, 0))
 
-        github_button = ttk.Button(icons_frame, image=github_icon, command=lambda: self.open_url(self.config["github_url"]))
+        github_button = ttk.Button(icons_frame, image=github_icon, command=lambda: self.open_url("https://github.com/blast752"))
         github_button.image = github_icon
         github_button.pack(side=tk.LEFT, padx=5)
 
-        telegram_button = ttk.Button(icons_frame, image=telegram_icon, command=lambda: self.open_url(self.config["telegram_url"]))
+        telegram_button = ttk.Button(icons_frame, image=telegram_icon, command=lambda: self.open_url("https://t.me/sonicselixir"))
         telegram_button.image = telegram_icon
         telegram_button.pack(side=tk.LEFT, padx=5)
 
-        paypal_button = ttk.Button(icons_frame, image=paypal_icon, command=lambda: self.open_url(self.config["paypal_url"]))
+        paypal_button = ttk.Button(icons_frame, image=paypal_icon, command=lambda: self.open_url("https://stillunderprogress.gg"))
         paypal_button.image = paypal_icon
         paypal_button.pack(side=tk.LEFT, padx=5)
 
-        buymeacoffee_button = ttk.Button(icons_frame, image=buy_me_a_coffee_icon, command=lambda: self.open_url(self.config["buymeacoffee_url"]))
+        buymeacoffee_button = ttk.Button(icons_frame, image=buy_me_a_coffee_icon, command=lambda: self.open_url("https://buymeacoffee.com/bodmlnnms"))
         buymeacoffee_button.image = buy_me_a_coffee_icon
         buymeacoffee_button.pack(side=tk.LEFT, padx=5)
 
@@ -263,6 +262,15 @@ class SonicsElixir:
         messagebox.showinfo("Arrivederci", self.translations[self.current_language]["exit_message"])
 
 
+def install_dependencies():
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+    except subprocess.CalledProcessError as e:
+        print(f"Errore durante l'installazione delle dipendenze: {e}")
+        sys.exit(1)
+
+
 if __name__ == "__main__":
+    install_dependencies()
     app = SonicsElixir()
     app.run()
