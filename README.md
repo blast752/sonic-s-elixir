@@ -1,72 +1,71 @@
 # Sonic's Elixir
 
-Sonic's Elixir is a utility program for managing Android devices via ADB (Android Debug Bridge). It provides a user-friendly graphical interface to execute various ADB commands and optimize the performance of connected Android devices. 
-NB that this program is still a beta pre-release and needs lot of testing.
+## Introduction
 
-Table of Contents:  
-* Features
-* Prerequisites
-* Installation
-* Usage
-* Configuration
-* Translations
-* Contributing
-* License
+Sonic's Elixir is a powerful Android device optimization tool designed to enhance your device's performance with the speed of Sonic! This user-friendly application leverages ADB (Android Debug Bridge) commands to streamline and boost your Android device's operation.
 
-1. **Features**
-   * Execute ADB commands to manage connected Android devices
-   * Force stop all running applications
-   * Clear application cache
-   * Optimize application performance through compilation and background optimization
-   * Support for multiple languages (English and Italian)
-   * Logging and error handling
-   * User-friendly graphical interface with icons and themed elements
+**Note:** Sonic's Elixir is currently in beta, pre-release stage and requires extensive testing. Use with caution and at your own risk.
 
-3. **Prerequisites**
-   * Before using SonicsElixir, ensure that you have the following prerequisites installed on your Windows system:
+## Features
 
-    ```
-    Python 3.x
-    ADB (Android Debug Bridge) command-line tool
-    ```
+- Quick and efficient Android device optimization
+- Device information retrieval
+- User-friendly GUI with Sonic-inspired design
+- Real-time progress tracking
+- Interrupt optimization process at any time
+- Built-in update checker
+- Easter egg feature for Sonic fans
 
-4. **Installation**
-   * Download the latest available version of Sonic's Elixir from my GitHub page
-   * Extract in a directory named Sonic-s Elixir the downloaded files
-   * Open command prompt (cmd) or PowerShell and navigate to the project directory.
-   * Install the required dependencies by running the following command:
+## System Requirements
 
-```
-pip install -r requirements.txt
-```
+- Windows Operating System
+- USB debugging enabled on your Android device
+- ADB drivers installed on your PC
 
-4. **Usage**
-   * Connect your Android device to your computer via USB.
-   * Enable USB debugging on your Android device in the Developer options.
-   * Run the SonicsElixir program by executing the following command:
+## Installation
 
-   ```
-   python sonics_elixir.py
-   ```
-   * The SonicsElixir graphical interface will open.
-   * Select the desired language from the language dropdown menu.
-   * Click the "Execute ADB Commands" button to start the optimization process.
-   * The program will execute various ADB commands, including force stopping applications, clearing cache, and optimizing application performance.
-   * The progress and output of the commands will be displayed in the terminal output area.
-   * If any errors occur during the process, an error message will be displayed, and the program will terminate gracefully.
-   * Once the optimization process is complete, a success message will be shown.
+1. Download the latest `SonicsElixir.exe` from the [Releases](https://github.com/blast752/sonic-s-elixir/releases) page.
+2. Run the executable. No additional installation is required.
 
-5. **Configuration**
-   * SonicsElixir uses a configuration file (config.json) to store various settings and URLs. This will be used for futures updates and purposes. **IN PROGRESS...**
+## Usage
 
-7. **Translations**
-   * SonicsElixir supports multiple languages through a translations file (translations.json). The default translations are provided for English and Italian. You can add or modify translations by editing the translations.json file.
+1. Connect your Android device to your PC via USB.
+2. Enable USB debugging on your Android device.
+3. Launch Sonic's Elixir with administrator privileges (right-click and select "Run as administrator").
+4. The first time you use ADB with your smartphone, a popup should appear on your device asking to authorize USB debugging for this PC. Accept this to proceed.
+5. Click "Run Optimization" to start the process.
+6. Monitor the progress in the output area.
+7. Use "Device Information" to view details about your connected device.
 
-9. **Contributing**
-    * Contributions to SonicsElixir are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the GitHub repository.
+Note: Running Sonic's Elixir with administrator privileges is recommended to ensure full functionality and avoid any permission-related issues.
 
-11. **License**
-    * This project is licensed under the MIT License.
+## Configuration
 
-* **Note: Do not use SonicsElixir on devices without proper authorization. Always ensure that you have the necessary permissions and comply with the terms and conditions of the device manufacturer and any applicable laws and regulations.**
-* **Disclaimer: The developer of SonicsElixir is not responsible for any damage or loss caused by the use of this program. Use it at your own risk.**
+Sonic's Elixir doesn't require any additional configuration. It's designed to work out of the box with its pre-configured optimization commands.
+
+## Localization
+
+Currently, Sonic's Elixir is available in Italian. Soon more complete version with English language. I'm working on supporting additional languages in future updates.
+
+## Contributing
+
+We welcome contributions to Sonic's Elixir! If you'd like to contribute, please fork the repository and submit a pull request with your changes.
+
+## License
+
+Sonic's Elixir is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Disclaimer
+
+**WARNING:** Sonic's Elixir modifies system settings on your Android device. Use this software only if you understand the implications and have proper authorization to modify your device.
+
+- The developer is not responsible for any damage or loss caused by the use of this program.
+- Always back up your data before using Sonic's Elixir.
+- Use this software at your own risk.
+- Ensure you have the legal right to modify the device you're optimizing.
+
+For support or to report issues, please open an issue on our [GitHub repository](https://github.com/blast752/sonic-s-elixir/issues).
+
+---
+
+Stay fast, stay optimized with Sonic's Elixir!
